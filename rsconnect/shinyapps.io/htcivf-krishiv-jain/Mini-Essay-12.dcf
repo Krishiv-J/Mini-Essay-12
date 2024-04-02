@@ -1,0 +1,13 @@
+name: Mini-Essay-12
+title: Mini-Essay-12
+username: htcivf-krishiv-jain
+account: htcivf-krishiv-jain
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11639702
+bundleId: 8443621
+url: https://htcivf-krishiv-jain.shinyapps.io/Mini-Essay-12/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Auschwitz_Death_Certificates_1942-1943 - Auschwitz.csv|cleaned_Auschwitz_data_new.csv|models/first_model.rds|paper/paper.pdf|paper/paper.qmd|paper/references.bib|README.md|other|scripts
