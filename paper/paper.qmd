@@ -1,13 +1,10 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Building an interactive graph for data on holocaust survivors and victims, and a discussion on Bouie's themes"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Krishiv
+thanks: "Code and data are available at: https://github.com/Krishiv-J/Mini-Essay-12. Shiny Applicaiton available at: https://htcivf-krishiv-jain.shinyapps.io/Mini-Essay-12/"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -25,196 +22,32 @@ library(palmerpenguins)
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+The Holocaust stands as one of the darkest chapters in human history, marked by unspeakable atrocities committed against millions of innocent lives. Among the numerous concentration camps where these atrocities occurred, Auschwitz is one of the most well known as it had the most number of deaths. An interactive bar chart and table was created to represent this data, specifically, on the residence based on the person's religions. 
 
-The remainder of this paper is structured as follows. @sec-data....
+For the creation of the interactive chart and table, R [@citeR] was used, along with the following packages: tidyverse [@citetidyverse], shiny [@citeshiny], ggplot2 [@citeggplot2], DT [@citeDT]. Moreover, @citetextbook as well as @citeUNC was used to write the code to create the Shiny application. 
 
-
+The interactive graph features a bar chart where the y-axis represents the different residences of the victims, and the x-axis displays the total number of deaths. Users can select specific religions or opt for all religions to generate the visualization. Notably, the chart is limited to displaying data for the top 20 residences. Whilst the graph provides a high-level overview of victim demographics, the accompanying interactive table offers more detailed insights. In the table, users can access individual victim records, including their first and last names, along with additional information such as date of birth and date of death.  
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
-
-Talk way more about it. 
-
-
-
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
+The data set used  comprises partially preserved Death Books (Sterbebücher) from the Auschwitz Concentration Camp. It documents the deaths of prisoners registered in the camp between July 29, 1941, and December 31, 1943. These records consist of 46 volumes, providing information on the individuals' last name, first name, date of birth, date of death, birthplace, residence, and religion. The events recorded in the data set occurred between July 29, 1941, and December 31, 1943. The data set contains records for a total of 65,280 individuals who died at Auschwitz Concentration Camp.
 
 
 # Discussion
 
-## First discussion point {#sec-first-point}
+Bouie's exploration of historical data on slavery provides valuable insights that resonate with our analysis of Holocaust victim demographics at Auschwitz. One theme that stands out is the balance between abstraction and humanisation that is often inherent in data analysis. Bouie discusses about how the act of quantifying human suffering through numerical representations can risk reducing individuals to mere data points, and devoid of their humanity. This tension is visible in our interactive graph, where victims are depicted as statistical counts, obscuring the richness of their individual stories.
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+Moreover, for the purpose of this analysis, only the top 20 residences of the victims have been included in the interactive visualization. This selective approach may obscure the diverse origins of the individuals who lost their lives in Auschwitz. This limitation raises important questions about representation and the potential for overlooking significant demographic patterns within the data set. This decision to focus on the top 20 residences reflects a broader theme discussed by Bouie regarding the challenges of adequately representing historical data and the inherent biases introduced by selective analysis.
 
-## Second discussion point
+However, our analysis also underscores the power of technology to humanise historical narratives. By providing users with access to individual victim records in the interactive table, we go beyond the limitations of quantitative abstraction and invite deeper engagement with the human stories behind the data. Each name in the table represents a life lost, a family shattered, and a story untold.
 
-## Third discussion point
+Moreover, Bouie's examination of the role of technology in shaping public engagement with historical data resonates deeply with our approach. In leveraging interactive visualisation tools, we bridge the gap between historical scholarship and public awareness, and invite users to actively engage with Holocaust history. Through intuitive interfaces and accessible data presentation, we allow individuals to explore victim demographics and confront the sobering realities of the Holocaust. In doing so, we honor the memory of those who perished while fostering a collective commitment to remembrance and education.
 
-## Weaknesses and next steps
+# Conclusion
 
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
-
-
+In conclusion, our interactive analysis offers valuable insights into the ethnic origins and number of Holocaust victims at Auschwitz. Through the juxtaposition of quantitative data and individual victim records, we aim to honour the memory of those who died and allow the public to more easily access data related to the Holocaust.
 
 \newpage
-
 
 # References
 
