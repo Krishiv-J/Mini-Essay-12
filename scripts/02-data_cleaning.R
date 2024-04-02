@@ -14,7 +14,7 @@ library(here)
 raw_data <- read_csv("Auschwitz_Death_Certificates_1942-1943 - Auschwitz.csv")
 
 #### Save Data ####
-write_csv(cleaned_data, "cleaned_Auschwitz_data_new.csv")
+write_csv(cleaned_data, "cleaned_data.csv")
 
 residence_data <- group_by(cleaned_data, residence)|>
   summarise(number = n()) |>

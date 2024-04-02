@@ -2,7 +2,7 @@ library(shiny)
 library(tidyverse)
 library(DT) 
 
-data <- read_csv("cleaned_Auschwitz_data_new.csv")
+data <- read_csv("cleaned_data.csv")
 
 # UI
 ui <- fluidPage(
